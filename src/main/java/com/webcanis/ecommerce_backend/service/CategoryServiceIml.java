@@ -1,15 +1,18 @@
 package com.webcanis.ecommerce_backend.service;
 
 import com.webcanis.ecommerce_backend.model.Category;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CategoryServiceIml implements CategoryService{
+public class CategoryServiceIml implements CategoryService {
     private List<Category> categories = new ArrayList<>();
-    private Long nextId =1L;
+    private Long nextId = 1L;
 
     @Override
     public List<Category> getAllCategories() {
@@ -26,7 +29,8 @@ public class CategoryServiceIml implements CategoryService{
     public String deleteCategory(Long categoryId) {
         Category category = categories.stream()
                 .filter(c -> c.getCategoryId().equals(categoryId))
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found."));
         if (category == null)
             return "category not found";
         categories.remove(category);
