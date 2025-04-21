@@ -31,6 +31,9 @@ Examples of generation types for generating unique Id's =
     @GeneratedValue(strategy = GenerationType.TABLE) //make use of a table to simulate a sequence
     @GeneratedValue(strategy = GenerationType.IDENTITY) //use an identity column in the database to generate primary keys.
 
+Repositories:
+CrudRepository is basic Crud operations like Create, Read, Update, Delete
+JpaRepository is a more specific definition of CrudRepository which adds more JPA specific methods like Flash, Save and Flash, and Delete in Batch
 
 
 
