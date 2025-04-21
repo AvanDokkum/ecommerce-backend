@@ -1,7 +1,7 @@
-package com.webcanis.ecommerce_backend.controller;
+package com.webcanis.backend.controller;
 
-import com.webcanis.ecommerce_backend.model.Category;
-import com.webcanis.ecommerce_backend.service.CategoryService;
+import com.webcanis.backend.model.Category;
+import com.webcanis.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

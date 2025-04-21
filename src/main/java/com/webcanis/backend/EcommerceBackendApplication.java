@@ -1,4 +1,4 @@
-package com.webcanis.ecommerce_backend;
+package com.webcanis.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

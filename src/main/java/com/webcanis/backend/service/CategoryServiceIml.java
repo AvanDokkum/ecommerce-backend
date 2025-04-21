@@ -1,8 +1,7 @@
-package com.webcanis.ecommerce_backend.service;
+package com.webcanis.backend.service;
 
-import com.webcanis.ecommerce_backend.model.Category;
+import com.webcanis.backend.model.Category;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 

@@ -1,4 +1,4 @@
-package com.webcanis.ecommerce_backend.model;
+package com.webcanis.backend.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
