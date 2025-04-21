@@ -1,0 +1,40 @@
+Notes
+
+H2 database:
+application.properties file:
+spring.h2.console.enabled=true
+The JDBC URL/location of the database needs to be defined as property =
+spring.datasource.url=jdbc:h2:mem:test
+
+To show the SQl being generated behind the scenes use property =
+spring.jpa.show-sql=true
+and to format the SQL use property =
+spring.jpa.properties.hibernate.format_sql=true
+
+JPA Entity:
+An entity represents a table in a relational database.
+
+To create a table from a POJO, annotate it with = @Entity, this entity needs a unique identifier.
+To create a unique identifier for an entity, annotate a field with = @Id annotation.
+
+Every field of the entity class would be mapped as a column in the database table.
+Every created object of the entity class would be mapped as a row in the database table.
+
+To give a specific name to an entity/table use @Entity(name = "table_name")
+
+Examples of generation types for generating unique Id's =
+    @GeneratedValue(strategy = GenerationType.AUTO) //default, let JPA choose strategy automatically depending on the database provider.
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    generator = "order_seq") //use a database sequence to generate primary key values
+    @SequenceGenerator(name = "order_seq",
+    sequenceName = "order_sequence", allocationSize = 1) //definition of the sequence generator
+    @GeneratedValue(strategy = GenerationType.TABLE) //make use of a table to simulate a sequence
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //use an identity column in the database to generate primary keys.
+
+
+
+
+
+
+
+

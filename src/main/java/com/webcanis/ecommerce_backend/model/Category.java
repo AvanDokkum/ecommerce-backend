@@ -1,6 +1,14 @@
 package com.webcanis.ecommerce_backend.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity(name = "categories")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //use an identity column in the database to generate primary keys.
     private Long categoryId;
     private String categoryName;
 
