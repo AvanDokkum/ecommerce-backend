@@ -35,7 +35,14 @@ Repositories:
 CrudRepository is basic Crud operations like Create, Read, Update, Delete
 JpaRepository is a more specific definition of CrudRepository which adds more JPA specific methods like Flash, Save and Flash, and Delete in Batch
 
-
+Validations in Spring Boot:
+@NotNull
+@NotEmpty
+@Size(min = x, max = y)
+@Email
+@Min(value) and @Max(value)
+add message like @Email(message = "Email should be valid") for custom messages
+Use validations in combination with @Valid annotation in the controller
 
 
 

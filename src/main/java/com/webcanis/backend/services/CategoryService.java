@@ -1,6 +1,6 @@
-package com.webcanis.backend.service;
+package com.webcanis.backend.services;
 
-import com.webcanis.backend.model.Category;
+import com.webcanis.backend.models.Category;
 
 import java.util.List;
 
