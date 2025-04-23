@@ -23,17 +23,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
-//    public List<Category> getAllCategories() {
-//        return categories;
-//    }
-
 
     @Override
     public void createCategory(Category category) {
         categoryRepository.save(category);
-
-//        category.setCategoryId(nextId++);
-//        categories.add(category);
     }
 
     @Override
