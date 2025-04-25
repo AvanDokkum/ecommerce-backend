@@ -1,5 +1,6 @@
 package com.webcanis.backend.services;
 
+import com.webcanis.backend.exceptions.ResourceNotFoundException;
 import com.webcanis.backend.models.Category;
 import com.webcanis.backend.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 //    private List<Category> categories = new ArrayList<>();
-//    private Long nextId = 1L;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -32,10 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public String deleteCategory(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
         categoryRepository.delete(category);
         return "Category with categoryId-" + categoryId + " deleted successfully.";
+    }
 
+    //old code:
 //        List<Category> categories = categoryRepository.findAll();
 //
 //        category = categories.stream()
@@ -55,19 +57,43 @@ public class CategoryServiceImpl implements CategoryService {
 //            return "category not found";
 //        categories.remove(category);
 //        return "Category with categoryId-" + categoryId + " deleted successfully.";
-    }
+
 
     @Override
     public Category updateCategory(Category category, Long categoryId) {
 
         //if Category exists it is assigned to savedCategory, else the error is being thrown
-        Category savedCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found."));
+        categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
+
+        //better implementations for checking existence of Category
+        //1: "Use existsById() for performance"
+
+//        if (!categoryRepository.existsById(categoryId)) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found.");
+//        }
+
+        //2: "Extract the validation into a separate method, handy if this occurs more often"
+
+//        private void assertCategoryExists(Long categoryId) {
+//            if (!categoryRepository.existsById(categoryId)) {
+//                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found.");
+//            }
+//        }
+//
+//        @Override
+//        public Category updateCategory(Category category, Long categoryId) {
+//            assertCategoryExists(categoryId);
+//
+//            category.setCategoryId(categoryId);
+//            return categoryRepository.save(category);
+//        }
 
         category.setCategoryId(categoryId);
-        savedCategory = categoryRepository.save(category);
-        return savedCategory;
+        return categoryRepository.save(category);
+    }
 
+    //old code:
 //        List<Category> categories = categoryRepository.findAll();
 //        Optional<Category> optionalCategory = categories.stream()
 //                .filter(c -> c.getCategoryId().equals(categoryId))
@@ -80,8 +106,6 @@ public class CategoryServiceImpl implements CategoryService {
 //        } else {
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found.");
 //        }
-
-    }
 
 
 }

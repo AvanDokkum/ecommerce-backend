@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //use an identity column in the database to generate primary keys.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //use an identity column in the database to generate primary keys.
     private Long categoryId;
 
     @NotBlank
