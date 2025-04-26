@@ -1,5 +1,6 @@
 package com.webcanis.backend.services;
 
+import com.webcanis.backend.exceptions.APIException;
 import com.webcanis.backend.exceptions.ResourceNotFoundException;
 import com.webcanis.backend.models.Category;
 import com.webcanis.backend.repositories.CategoryRepository;
@@ -20,12 +21,20 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()){
+            throw new APIException("No category created yet.");
+        }
+        return categories;
     }
 
 
     @Override
     public void createCategory(Category category) {
+        Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (savedCategory != null){
+            throw new APIException("Category with the name " + category.getCategoryName() + " already exists.");
+        }
         categoryRepository.save(category);
     }
 
