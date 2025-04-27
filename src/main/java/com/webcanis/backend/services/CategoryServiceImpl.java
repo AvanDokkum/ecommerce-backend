@@ -3,11 +3,15 @@ package com.webcanis.backend.services;
 import com.webcanis.backend.exceptions.APIException;
 import com.webcanis.backend.exceptions.ResourceNotFoundException;
 import com.webcanis.backend.models.Category;
+import com.webcanis.backend.payload.CategoryDTO;
+import com.webcanis.backend.payload.CategoryResponse;
 import com.webcanis.backend.repositories.CategoryRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -15,12 +19,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
-    public List<Category> getAllCategories() {
+    public CategoryResponse getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         if (categories.isEmpty()){
             throw new APIException("No category created yet.");
         }
+        List<CategoryDTO> categoryDTOS = categories.stream()
+                .map(category -> modelMapper.map(category, CategoryDTO.class))
+                .toList();
+        //Continue 112 at 8:41
         return categories;
     }
 

@@ -44,7 +44,23 @@ Validations in Spring Boot:
 add message like @Email(message = "Email should be valid") for custom messages
 Use validations in combination with @Valid annotation in the controller
 
+DTO's:
+DTO's are needed so separate concerns from the model and API's.
+If I want to change the output of my API (presentation layer), for example changing or adding fields in the JSON output of the Category model, the database also has to  changes.
+To prevent that I can use DTO's to decouple the API output and the model+database.
 
+To map Entities to DTO's use ModelMapper:
+url: https://modelmapper.org/
+"We can use ModelMapper to implicitly map an order instance to a new OrderDTO:
+
+ ModelMapper modelMapper = new ModelMapper();
+ OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+ And we can test that properties are mapped as expected:
+
+ assertEquals(order.getCustomer().getName().getFirstName(), orderDTO.getCustomerFirstName());
+ assertEquals(order.getCustomer().getName().getLastName(), orderDTO.getCustomerLastName());
+ assertEquals(order.getBillingAddress().getStreet(), orderDTO.getBillingStreet());
+ assertEquals(order.getBillingAddress().getCity(), orderDTO.getBillingCity());"
 
 
 
