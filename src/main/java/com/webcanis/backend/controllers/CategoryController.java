@@ -1,6 +1,7 @@
 package com.webcanis.backend.controllers;
 
 import com.webcanis.backend.models.Category;
+import com.webcanis.backend.payload.CategoryResponse;
 import com.webcanis.backend.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class CategoryController {
 
     //    @GetMapping("/api/public/categories")
     @RequestMapping(value = "/public/categories", method = RequestMethod.GET)
-    public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> allCategories = categoryService.getAllCategories();
-        return new ResponseEntity<>(allCategories, HttpStatus.OK);
+    public ResponseEntity<CategoryResponse> getAllCategories() {
+        CategoryResponse categoryResponse = categoryService.getAllCategories();
+        return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
     }
 
     //    @PostMapping("/api/public/categories")

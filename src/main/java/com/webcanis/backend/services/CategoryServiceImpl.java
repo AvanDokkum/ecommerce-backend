@@ -25,21 +25,25 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        if (categories.isEmpty()){
+
+        if (categories.isEmpty()) {
             throw new APIException("No category created yet.");
         }
+
         List<CategoryDTO> categoryDTOS = categories.stream()
                 .map(category -> modelMapper.map(category, CategoryDTO.class))
                 .toList();
-        //Continue 112 at 8:41
-        return categories;
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setContent(categoryDTOS);
+        return categoryResponse;
     }
 
 
     @Override
     public void createCategory(Category category) {
         Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
-        if (savedCategory != null){
+        if (savedCategory != null) {
             throw new APIException("Category with the name " + category.getCategoryName() + " already exists.");
         }
         categoryRepository.save(category);
