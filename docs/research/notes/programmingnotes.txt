@@ -62,5 +62,28 @@ url: https://modelmapper.org/
  assertEquals(order.getBillingAddress().getStreet(), orderDTO.getBillingStreet());
  assertEquals(order.getBillingAddress().getCity(), orderDTO.getBillingCity());"
 
+ Encountered the follow error when running the tests:
+ "
+ Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+  WARNING: A Java agent has been loaded dynamically (C:\Users\arjan\.m2\repository\net\bytebuddy\byte-buddy-agent\1.15.11\byte-buddy-agent-1.15.11.jar)
+  WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+  WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+  WARNING: Dynamic loading of agents will be disallowed by default in a future release
+  Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+"
+to fix this error add mockito into javaagent using the following plugin statement in pom.xml:
+"
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>
+						-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+						-Xshare:off
+					</argLine>
+				</configuration>
+			</plugin>
+"
+
 
 
