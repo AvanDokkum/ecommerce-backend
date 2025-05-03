@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public Category updateCategory(Category category, Long categoryId) {
+    public CategoryDTO updateCategory(CategoryDTO categoryDTO, Long categoryId) {
 
         //if Category exists it is assigned to savedCategory, else the error is being thrown
         categoryRepository.findById(categoryId)
@@ -112,8 +112,11 @@ public class CategoryServiceImpl implements CategoryService {
 //            return categoryRepository.save(category);
 //        }
 
+
+        Category category = modelMapper.map(categoryDTO, Category.class);
         category.setCategoryId(categoryId);
-        return categoryRepository.save(category);
+        Category savedCategory = categoryRepository.save(category);
+        return modelMapper.map(savedCategory, CategoryDTO.class);
     }
 
     //old code:
