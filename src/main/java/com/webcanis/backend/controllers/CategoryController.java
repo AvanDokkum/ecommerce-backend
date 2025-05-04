@@ -35,12 +35,12 @@ public class CategoryController {
 
     //    @DeleteMapping("/admin/categories/{categoryId}")
     @RequestMapping(value = "/admin/categories/{categoryId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) {
-            String status = categoryService.deleteCategory(categoryId);
+    public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable Long categoryId) {
+            CategoryDTO deletedCategoryDTO = categoryService.deleteCategory(categoryId);
 //            multiple ways of doing declaring the same response entity
 //            return ResponseEntity.ok(status);
 //            return ResponseEntity.status(HttpStatus.OK).body(status);
-            return new ResponseEntity<>(status, HttpStatus.OK);
+            return new ResponseEntity<>(deletedCategoryDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/public/categories/{categoryId}", method = RequestMethod.PUT)
