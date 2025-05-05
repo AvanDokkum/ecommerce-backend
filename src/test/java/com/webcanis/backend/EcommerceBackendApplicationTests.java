@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //integration tests
@@ -32,7 +33,31 @@ class EcommerceBackendApplicationTests {
 						post("/api/public/categories")
 								.content(jsonRequest)
 								.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().is2xxSuccessful());
+				.andExpect(status().isCreated());
 	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"TestCategory"})
+	public void testGetAllCategoriesShouldPass(String input) throws Exception {
+		String jsonRequest = "{\"categoryName\" : \"" + input + "\"}";
+//		mockMvc.perform(
+//						get("/api/public/categories")
+//								.content(jsonRequest)
+//								.contentType(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isBadRequest());
+//		mockMvc.perform(
+//						post("/api/public/categories")
+//								.content(jsonRequest)
+//								.contentType(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isCreated());
+		mockMvc.perform(
+						get("/api/public/categories")
+								.content(jsonRequest)
+								.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+	}
+
+
 
 }
